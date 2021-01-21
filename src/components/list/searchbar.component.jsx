@@ -7,7 +7,7 @@ const SearchBar = ({ handleAddList, handleChange }) => {
     <div className="menu-bar">
       <form onSubmit={handleAddList}>
         <label>
-          Search Pokemon
+          Search Owned Pokemon
           <input type="text" name="name" onChange={handleChange} />
         </label>
         <input type="submit" value="Submit" />
