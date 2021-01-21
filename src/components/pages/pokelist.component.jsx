@@ -5,18 +5,17 @@ import PokemonListContext from "../contexts/list.context";
 import OwnedPokemonContext from "../contexts/owned.context";
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 
-const Pokelist = ({catchPokemon}) => {
+const Pokelist = () => {
     return (
         <div className="pokelist-page">
             <PokemonListContext.Consumer>
-                {(list) =>
+                {({list, selectPokemon}) =>
                     list.map((item) => (
                         <OwnedPokemonContext>
                             {(owned) => ( //get the list
-                            <Router>
                                 <Link to='/detailed'>
                                 <ListItem
-                                    catchPokemon={catchPokemon}
+                                    selectPokemon={selectPokemon}
                                     isOwned={item.isDone}
                                     key={`${item.name}`}
                                     ownNo={owned.includes(item.name)}
@@ -24,7 +23,6 @@ const Pokelist = ({catchPokemon}) => {
                                     url={item.url}
                                 ></ListItem>
                                 </Link>
-                            </Router>
                             )}
                         </OwnedPokemonContext>
                     ))

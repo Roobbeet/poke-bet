@@ -4,14 +4,17 @@ import DetailedItem from '../list/detail.component'
 import DetailedPokemonContext from '../contexts/detailed.context'
 
 
-const DetailedPokemon = (pokeDetail) => {
-    console.log(pokeDetail);
+const DetailedPokemon = () => {
     return (
         <div className="pokelist-page">
             {   
-                // <DetailedPokemonContext.Consumer>
-                <DetailedItem></DetailedItem>
-                // </DetailedPokemonContext.Consumer>
+                <DetailedPokemonContext.Consumer>
+                    {({currentItem, catchPokemon}) => (
+                        <DetailedItem currentItem={currentItem} catchPokemon={catchPokemon}>
+                        </DetailedItem>
+                    )
+                    }
+                </DetailedPokemonContext.Consumer>
             }
         </div>
     )

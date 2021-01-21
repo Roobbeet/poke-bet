@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+// pages and main component(s)
 import Pokelist from './components/pages/pokelist.component';
 import DetailedPokemon from './components/pages/pokedetail.component'
 import SearchBar from './components/list/searchbar.component'
 import OwnedPokelist from './components/pages/ownedpoke.component'
 
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
+// Context(s)
 import OwnedPokemonContext from './components/contexts/owned.context'
 import PokemonList from './components/contexts/list.context'
 import DetailedPokemonContext from './components/contexts/detailed.context'
@@ -16,7 +18,6 @@ const App = () => {
   const [list, newList] = useState([]);
   const [owned, newOwned] = useState([]);
   const [fetchres, newRes] = useState([]);
-
   const [currentItem, setCurrent] = useState('');
 
   useEffect(() => {
@@ -29,40 +30,48 @@ const App = () => {
       })
   }, [])
 
+  // useEffect(() => {setCurrent(currentItem)}, [currentItem])
 
-  //Open Poke Details
-  const handleOpen = async item => {
-    fetch(item.url)
-      .then(response => response.json())
-      .then(pokelist => {
-        setCurrent(pokelist)
-      })
-  }
   const nextPage = () => {
     console.log(fetchres.next)
     fetch(`${fetchres.next}`)
-    .then(res => res.json())
-    .then(fetch => {
-      console.log(fetch)
-      newList(fetch.results)
-      newRes(fetch)
-    })
+      .then(res => res.json())
+      .then(fetch => {
+        console.log(fetch)
+        newList(fetch.results)
+        newRes(fetch)
+      })
   }
+
   const prevPage = () => {
     console.log(fetchres.previous)
     fetch(`${fetchres.previous}`)
-    .then(res => res.json())
-    .then(fetch => {
-      console.log(fetch)
-      newList(fetch.results)
-      newRes(fetch)
-    })
+      .then(res => res.json())
+      .then(fetch => {
+        console.log(fetch)
+        newList(fetch.results)
+        newRes(fetch)
+      })
   }
 
   //catch function
   const catchPokemon = (pokeID) => {
     const math = Math.floor(Math.random() * (3 - 1) + 1)
-    math < 2 ? console.log('failed to catch') : newOwned(...owned, pokeID)
+    math < 2 ? console.log('failed to catch') : console.log('gotcha')
+    // console.log(owned)
+    // newOwned(...owned, pokeID)
+  }
+  const selectPokemon = (pokeUrl) => {
+    console.log(pokeUrl);
+    fetch(pokeUrl)
+      .then(response => response.json())
+      .then(pokedetail => {
+        console.log(pokedetail)
+        setCurrent(pokedetail)
+        console.log(currentItem)
+      })
+
+    // newOwned(...owned, pokeID)
 
   }
 
@@ -73,20 +82,25 @@ const App = () => {
       <SearchBar></SearchBar>
       <div className="List">
         <div className="New list-container">
-          <button onClick={nextPage}>next</button>
           <button onClick={prevPage}>prev</button>
+          <button onClick={nextPage}>next</button>
           <h2 className="list-title">List</h2>
-          <Switch>
-            <DetailedPokemonContext.Provider value={currentItem}>
-              <PokemonList.Provider value={list}>
-                <OwnedPokemonContext.Provider value={owned}>
-                  <Route exact path='/' component={Pokelist} catchPokemon={catchPokemon} />
-                  <Route exact path='/detailed' component={DetailedPokemon} />
-                  <Route exact path='/mypoke' component={OwnedPokelist} />
-                </OwnedPokemonContext.Provider>
-              </PokemonList.Provider>
-            </DetailedPokemonContext.Provider>
-          </Switch>
+
+
+          <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon }}>
+            <PokemonList.Provider value={{ list, selectPokemon }}>
+              <OwnedPokemonContext.Provider value={owned}>
+                <BrowserRouter>
+                  <Switch>
+                    <Route exact path='/' component={Pokelist} />
+                    <Route exact path='/detailed' component={DetailedPokemon} />
+                    <Route path='/mypoke' component={OwnedPokelist} />
+                  </Switch>
+                </BrowserRouter>
+              </OwnedPokemonContext.Provider>
+            </PokemonList.Provider>
+          </DetailedPokemonContext.Provider>
+
 
         </div>
       </div>
