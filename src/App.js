@@ -21,6 +21,14 @@ const App = () => {
   const [currentItem, setCurrent] = useState('');
 
   useEffect(() => {
+    const lastSelected = JSON.parse(localStorage.getItem('selectedItem'))
+    const ownedPokes = JSON.parse(localStorage.getItem('ownedPokemon'))
+    if (lastSelected) {
+      setCurrent(lastSelected)
+    }
+    if (ownedPokes) {
+      newOwned(ownedPokes)
+    }
     fetch('https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20')
       .then(response => response.json())
       .then(pokelist => {
@@ -29,8 +37,8 @@ const App = () => {
         newList(pokelist.results)
       })
   }, [])
-
-  // useEffect(() => {setCurrent(currentItem)}, [currentItem])
+  useEffect(() => {localStorage.setItem('selectedItem', JSON.stringify(currentItem));}, [currentItem]) //store selected Item
+  useEffect(() => {localStorage.setItem('ownedPokemon', JSON.stringify(owned));}, [owned]) //owned pokemons persist
 
   const nextPage = () => {
     console.log(fetchres.next)

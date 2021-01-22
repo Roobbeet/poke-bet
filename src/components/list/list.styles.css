@@ -29,3 +29,7 @@ i {
     margin-left: 20px;
     background-color: transparent;
 }
+.moves {
+    height: 150px;
+    overflow: scroll;
+}

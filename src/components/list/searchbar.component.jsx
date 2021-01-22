@@ -12,11 +12,10 @@ const SearchBar = ({ handleAddList, handleChange }) => {
         </label>
         <input type="submit" value="Submit" />
       </form>
-      {/* for menus */}
-      <Router>
-          <Link to='/'>Pokemon List</Link>
-          <Link to='/mypoke'>Owned Pokemon</Link>
-      </Router>
+      <div className="tabs">
+        <Link to='/'>Pokemon List</Link>
+        <Link to='/mypoke'>My Pokemon List</Link>
+      </div>
     </div>
   )
 }
