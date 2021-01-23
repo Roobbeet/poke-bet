@@ -7,22 +7,9 @@ const OwnedList = ({ ownedItem, releasePokemon }) => {
     console.log(ownedItem)
     return (
         <div>
-            <div className="mon-pict">
-                {/* {
-                    currentItem ?
-                        <img src={currentItem.sprites.front_default} alt="front default" /> : null
-                }
-                {
-                    currentItem ?
-                        <img src={sprites.back_default} alt="back default" /> : null
-                } */}
-            </div>
             <div className="mon-details">
                 <div className="types">
-                    {/* {
-                        currentItem ?
-                            currentItem.types.map(el => <p className="no">{el.type.name}</p>) : null
-                    } */}
+                    <h1>{ownedItem.name}</h1>
                 </div>
                 <div className="moves">
                     {/* {
