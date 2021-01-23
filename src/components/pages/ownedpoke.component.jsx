@@ -1,5 +1,5 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 // import './search.style.css';
 import OwnedList from '../list/ownedlist.component'
 import OwnedPokemonContext from '../contexts/owned.context'
@@ -12,14 +12,16 @@ const OwnedPokelist = (pokeDetail) => {
             {
                 <OwnedPokemonContext.Consumer>
                     {
-                        ({ownedList, releasePokemon}) => {
-                            ownedList.map(el => (
-                                <OwnedList
-                                el={el}
-                                releasePokemon={releasePokemon}
-                                >
-                                </OwnedList>
-                            ))
+                        ({ ownedList, releasePokemon }) => {
+                            if (ownedList) {
+                                ownedList.map(el => (
+                                    <OwnedList
+                                        ownedItem={el}
+                                        releasePokemon={releasePokemon}
+                                    >
+                                    </OwnedList>
+                                ))
+                            }
                         }
                     }
                 </OwnedPokemonContext.Consumer>

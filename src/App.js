@@ -4,10 +4,11 @@ import './App.css';
 // pages and main component(s)
 import Pokelist from './components/pages/pokelist.component';
 import DetailedPokemon from './components/pages/pokedetail.component'
-import SearchBar from './components/list/searchbar.component'
 import OwnedPokelist from './components/pages/ownedpoke.component'
 
-import { Switch, Route, BrowserRouter} from 'react-router-dom'
+import SearchBar from './components/list/searchbar.component'
+
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 // Context(s)
 import OwnedPokemonContext from './components/contexts/owned.context'
 import PokemonList from './components/contexts/list.context'
@@ -21,15 +22,15 @@ const App = () => {
   const [currentItem, setCurrent] = useState('');
 
   useEffect(() => {
-    const lastSelected = JSON.parse(localStorage.getItem('selectedItem'))
+    // const lastSelected = JSON.parse(localStorage.getItem('selectedItem'))
     const ownedPokes = JSON.parse(localStorage.getItem('ownedPokemon'))
-    if (lastSelected) {
-      setCurrent(lastSelected)
-    }
+    // if (lastSelected) {
+    //   setCurrent(lastSelected)
+    // }
     if (ownedPokes) {
       newOwned(ownedPokes)
     }
-    fetch('https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20')
+    fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20')
       .then(response => response.json())
       .then(pokelist => {
         console.log(pokelist)
@@ -68,7 +69,7 @@ const App = () => {
     math < 2 ? console.log('failed to catch') : newOwned([...owned, pokeID])
     // console.log('gotcha')
     console.log(owned)
-    
+
   }
   const selectPokemon = (pokeUrl) => {
     console.log(pokeUrl);
@@ -96,20 +97,20 @@ const App = () => {
 
       <div className="List">
         <div className="New list-container">
-            <Switch>
-              <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon }}>
-                <PokemonList.Provider value={{ list, selectPokemon }}>
-                  <OwnedPokemonContext.Provider value={{owned, releasePokemon}}>
-                    <SearchBar></SearchBar>
-                    <button onClick={prevPage}>prev</button>
-                    <button onClick={nextPage}>next</button>
-                    <Route exact path='/' component={Pokelist} />
-                    <Route path='/detailed' component={DetailedPokemon} />
-                    <Route path='/mypoke' component={OwnedPokelist} />
-                  </OwnedPokemonContext.Provider>
-                </PokemonList.Provider>
-              </DetailedPokemonContext.Provider>
-            </Switch>
+          <Switch>
+            <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon }}>
+              <PokemonList.Provider value={{ list, selectPokemon }}>
+                <OwnedPokemonContext.Provider value={{ owned, releasePokemon }}>
+                  <SearchBar></SearchBar>
+                  <button onClick={prevPage}>prev</button>
+                  <button onClick={nextPage}>next</button>
+                  <Route exact path='/' component={Pokelist} />
+                  <Route path='/detailed' component={DetailedPokemon} />
+                  <Route path='/mypoke' component={OwnedPokelist} />
+                </OwnedPokemonContext.Provider>
+              </PokemonList.Provider>
+            </DetailedPokemonContext.Provider>
+          </Switch>
         </div>
       </div>
     </div>
