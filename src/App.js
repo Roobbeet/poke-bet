@@ -20,6 +20,7 @@ const App = () => {
   const [owned, newOwned] = useState([]);
   const [fetchres, newRes] = useState([]);
   const [currentItem, setCurrent] = useState('');
+  const [popUpActive, setPopUp] = useState(false)
 
   useEffect(() => {
     // const lastSelected = JSON.parse(localStorage.getItem('selectedItem'))
@@ -64,13 +65,17 @@ const App = () => {
   }
 
   //catch function
-  const catchPokemon = (pokeID) => {
+  const catchPokemon = () => { //popup open then give name
     const math = Math.floor(Math.random() * (3 - 1) + 1)
-    math < 2 ? console.log('failed to catch') : newOwned([...owned, pokeID])
-    // console.log('gotcha')
+    math < 2 ? console.log('failed to catch') : setPopUp(true)
     console.log(owned)
-
   }
+
+  const updateOwned = (pokeID, nickname) => {
+    newOwned([...owned, {pokeID, nickname}])
+    setPopUp(false)
+  }
+
   const selectPokemon = (pokeUrl) => {
     fetch(pokeUrl)
       .then(response => response.json())
@@ -80,10 +85,11 @@ const App = () => {
         console.log(currentItem)
       })
   }
-  const releasePokemon = (pokeID) => {
-    console.log(pokeID)
-    // const updatedOwned = owned.filter(el => el !== pokeID)
-    // newOwned(updatedOwned)
+  const releasePokemon = (nickName) => {
+    console.log(nickName)
+    const updatedOwned = owned.filter(el => el.nickname !== nickName)
+    newOwned(updatedOwned)
+    console.log(owned)
   }
 
   return (
@@ -94,7 +100,7 @@ const App = () => {
       <div className="List">
         <div className="New list-container">
           <Switch>
-            <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon }}>
+            <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon, popUpActive, updateOwned }}>
               <PokemonList.Provider value={{ list, selectPokemon }}>
                 <OwnedPokemonContext.Provider value={{ owned, releasePokemon }}>
                   <SearchBar></SearchBar>

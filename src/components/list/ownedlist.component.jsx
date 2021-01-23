@@ -3,13 +3,14 @@ import './list.styles.css'
 
 const OwnedList = ({ ownedItem, releasePokemon }) => {
 
-    const { types, moves, sprites } = ownedItem
-    console.log(ownedItem)
+    const { types, moves, sprites, name } = ownedItem.pokeID
+    const {nickname} = ownedItem
+    console.log(types, moves, sprites)
     return (
         <div>
             <div className="mon-details">
                 <div className="types">
-                    <h1>{ownedItem.name}</h1>
+                    <h1>{nickname} {name}</h1>
                 </div>
                 <div className="moves">
                     {/* {
@@ -19,7 +20,7 @@ const OwnedList = ({ ownedItem, releasePokemon }) => {
                 </div>
             </div>
             <div className="catch-btn">
-                <button onClick={() => releasePokemon(ownedItem)}>Release</button>
+                <button onClick={() => releasePokemon(ownedItem.nickname)}>Release</button>
             </div>
         </div>
     )

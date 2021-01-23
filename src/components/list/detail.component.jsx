@@ -1,10 +1,15 @@
 import React from 'react';
 import './list.styles.css'
 
-const DetailedItem = ({ currentItem, catchPokemon }) => {
+const DetailedItem = ({ currentItem, catchPokemon, popUpActive, updateOwned }) => {
     // console.log(currentItem);
     // console.log(catchPokemon)
     const { types, moves, sprites } = currentItem
+    let nickName = null;
+    const handleChange = async event => {
+        const {value} = await event.target
+        nickName = value
+      }
     console.table(types)
     return (
         <div>
@@ -32,7 +37,12 @@ const DetailedItem = ({ currentItem, catchPokemon }) => {
                     }
                 </div>
             </div>
-            <div className="catch-btn">
+            <div className={`nickname-form ${popUpActive ? null : `hidden`}`}>
+                <h1>You Got It! Give it a cool name, will ya?</h1>
+                <input type="text" onChange={handleChange}/>
+                <button onClick={() => updateOwned(currentItem, nickName)}>Add Nickname</button>
+            </div>
+            <div className={`catch-btn ${!popUpActive ? null : `hidden`}`}>
                 <button onClick={() => catchPokemon(currentItem)}>Catch</button>
             </div>
         </div>

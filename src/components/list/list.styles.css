@@ -33,3 +33,6 @@ i {
     height: 150px;
     overflow: scroll;
 }
+.hidden {
+    display: none;
+}
