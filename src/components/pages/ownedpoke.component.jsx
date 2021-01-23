@@ -1,31 +1,28 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
 // import './search.style.css';
 import OwnedList from '../list/ownedlist.component'
 import OwnedPokemonContext from '../contexts/owned.context'
+import ListItem from "../list/list.component";
 
 
-const OwnedPokelist = (pokeDetail) => {
-    console.log(pokeDetail);
+const OwnedPokelist = () => {
     return (
-        <div className="pokelist-page">
-            {
+        <div className="ownedlist-page">
                 <OwnedPokemonContext.Consumer>
                     {
-                        ({ ownedList, releasePokemon }) => {
-                            if (ownedList) {
-                                ownedList.map(el => (
+                        ({ owned, releasePokemon }) => 
+                            // if (owned) {
+                                owned.map(ownedItem => (
                                     <OwnedList
-                                        ownedItem={el}
+                                        ownedItem={ownedItem}
                                         releasePokemon={releasePokemon}
                                     >
                                     </OwnedList>
                                 ))
-                            }
-                        }
+                            // }
+                        
                     }
                 </OwnedPokemonContext.Consumer>
-            }
         </div>
     )
 }

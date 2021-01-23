@@ -3,7 +3,7 @@ import React from "react";
 import ListItem from "../list/list.component";
 import PokemonListContext from "../contexts/list.context";
 import OwnedPokemonContext from "../contexts/owned.context";
-import { Link, BrowserRouter as Router,  withRouter} from 'react-router-dom'
+import { Link, BrowserRouter as Router} from 'react-router-dom'
 
 const Pokelist = () => {
     return (

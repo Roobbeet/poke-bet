@@ -8,7 +8,7 @@ import OwnedPokelist from './components/pages/ownedpoke.component'
 
 import SearchBar from './components/list/searchbar.component'
 
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { Switch, Route} from 'react-router-dom'
 // Context(s)
 import OwnedPokemonContext from './components/contexts/owned.context'
 import PokemonList from './components/contexts/list.context'
@@ -72,7 +72,6 @@ const App = () => {
 
   }
   const selectPokemon = (pokeUrl) => {
-    console.log(pokeUrl);
     fetch(pokeUrl)
       .then(response => response.json())
       .then(pokedetail => {
@@ -80,9 +79,6 @@ const App = () => {
         setCurrent(pokedetail)
         console.log(currentItem)
       })
-
-    // newOwned(...owned, pokeID)
-
   }
   const releasePokemon = (pokeID) => {
     console.log(pokeID)
