@@ -1,9 +1,9 @@
 import React from 'react';
 import './list.styles.css'
 
-const DetailedItem = ({ currentItem, catchPokemon }) => {
-    // console.log(currentItem);
-    // console.log(catchPokemon)
+const OwnedList = ({ currentItem, catchPokemon }) => {
+    console.log(currentItem);
+    console.log(catchPokemon)
     const { types, moves, sprites } = currentItem
     console.table(types)
     return (
@@ -39,4 +39,4 @@ const DetailedItem = ({ currentItem, catchPokemon }) => {
     )
 }
 
-export default React.memo(DetailedItem); 
+export default React.memo(OwnedList); 

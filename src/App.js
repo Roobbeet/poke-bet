@@ -7,7 +7,7 @@ import DetailedPokemon from './components/pages/pokedetail.component'
 import SearchBar from './components/list/searchbar.component'
 import OwnedPokelist from './components/pages/ownedpoke.component'
 
-import { Switch, Route, BrowserRouter, withRouter } from 'react-router-dom'
+import { Switch, Route, BrowserRouter} from 'react-router-dom'
 // Context(s)
 import OwnedPokemonContext from './components/contexts/owned.context'
 import PokemonList from './components/contexts/list.context'
@@ -65,9 +65,10 @@ const App = () => {
   //catch function
   const catchPokemon = (pokeID) => {
     const math = Math.floor(Math.random() * (3 - 1) + 1)
-    math < 2 ? console.log('failed to catch') : console.log('gotcha')
-    // console.log(owned)
-    // newOwned(...owned, pokeID)
+    math < 2 ? console.log('failed to catch') : newOwned([...owned, pokeID])
+    // console.log('gotcha')
+    console.log(owned)
+    
   }
   const selectPokemon = (pokeUrl) => {
     console.log(pokeUrl);
@@ -82,6 +83,11 @@ const App = () => {
     // newOwned(...owned, pokeID)
 
   }
+  const releasePokemon = (pokeID) => {
+    console.log(pokeID)
+    // const updatedOwned = owned.filter(el => el !== pokeID)
+    // newOwned(updatedOwned)
+  }
 
   return (
     <div className="App">
@@ -90,11 +96,10 @@ const App = () => {
 
       <div className="List">
         <div className="New list-container">
-          <BrowserRouter>
             <Switch>
               <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon }}>
                 <PokemonList.Provider value={{ list, selectPokemon }}>
-                  <OwnedPokemonContext.Provider value={owned}>
+                  <OwnedPokemonContext.Provider value={{owned, releasePokemon}}>
                     <SearchBar></SearchBar>
                     <button onClick={prevPage}>prev</button>
                     <button onClick={nextPage}>next</button>
@@ -105,8 +110,6 @@ const App = () => {
                 </PokemonList.Provider>
               </DetailedPokemonContext.Provider>
             </Switch>
-          </BrowserRouter>
-
         </div>
       </div>
     </div>

@@ -18,7 +18,6 @@ const Pokelist = () => {
                                     selectPokemon={selectPokemon}
                                     isOwned={item.isDone}
                                     key={`${item.name}`}
-                                    ownNo={owned.includes(item.name)}
                                     itemName={item.name}
                                     url={item.url}
                                 ></ListItem>
