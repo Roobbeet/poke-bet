@@ -7,7 +7,7 @@ import DetailedPokemon from './components/pages/pokedetail.component'
 import SearchBar from './components/list/searchbar.component'
 import OwnedPokelist from './components/pages/ownedpoke.component'
 
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { Switch, Route, BrowserRouter, withRouter } from 'react-router-dom'
 // Context(s)
 import OwnedPokemonContext from './components/contexts/owned.context'
 import PokemonList from './components/contexts/list.context'
@@ -37,8 +37,8 @@ const App = () => {
         newList(pokelist.results)
       })
   }, [])
-  useEffect(() => {localStorage.setItem('selectedItem', JSON.stringify(currentItem));}, [currentItem]) //store selected Item
-  useEffect(() => {localStorage.setItem('ownedPokemon', JSON.stringify(owned));}, [owned]) //owned pokemons persist
+  useEffect(() => { localStorage.setItem('selectedItem', JSON.stringify(currentItem)); }, [currentItem]) //store selected Item
+  useEffect(() => { localStorage.setItem('ownedPokemon', JSON.stringify(owned)); }, [owned]) //owned pokemons persist
 
   const nextPage = () => {
     console.log(fetchres.next)
@@ -87,28 +87,25 @@ const App = () => {
     <div className="App">
       <h1 className="title">Poke-Bet by <u><a target="_blank" href="https://github.com/Roobbeet">Roobbeet</a></u></h1>
       <h3 className="">Check my cool game <u><a target="_blank" href="https://6-magics.netlify.app/">Here</a></u></h3>
-      <SearchBar></SearchBar>
+
       <div className="List">
         <div className="New list-container">
-          <button onClick={prevPage}>prev</button>
-          <button onClick={nextPage}>next</button>
-          <h2 className="list-title">List</h2>
-
-
-          <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon }}>
-            <PokemonList.Provider value={{ list, selectPokemon }}>
-              <OwnedPokemonContext.Provider value={owned}>
-                <BrowserRouter>
-                  <Switch>
+          <BrowserRouter>
+            <Switch>
+              <DetailedPokemonContext.Provider value={{ currentItem, catchPokemon }}>
+                <PokemonList.Provider value={{ list, selectPokemon }}>
+                  <OwnedPokemonContext.Provider value={owned}>
+                    <SearchBar></SearchBar>
+                    <button onClick={prevPage}>prev</button>
+                    <button onClick={nextPage}>next</button>
                     <Route exact path='/' component={Pokelist} />
-                    <Route exact path='/detailed' component={DetailedPokemon} />
+                    <Route path='/detailed' component={DetailedPokemon} />
                     <Route path='/mypoke' component={OwnedPokelist} />
-                  </Switch>
-                </BrowserRouter>
-              </OwnedPokemonContext.Provider>
-            </PokemonList.Provider>
-          </DetailedPokemonContext.Provider>
-
+                  </OwnedPokemonContext.Provider>
+                </PokemonList.Provider>
+              </DetailedPokemonContext.Provider>
+            </Switch>
+          </BrowserRouter>
 
         </div>
       </div>
