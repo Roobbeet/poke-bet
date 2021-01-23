@@ -23,11 +23,11 @@ const App = () => {
   const [popUpActive, setPopUp] = useState(false)
 
   useEffect(() => {
-    // const lastSelected = JSON.parse(localStorage.getItem('selectedItem'))
+    const lastSelected = JSON.parse(localStorage.getItem('selectedItem'))
     const ownedPokes = JSON.parse(localStorage.getItem('ownedPokemon'))
-    // if (lastSelected) {
-    //   setCurrent(lastSelected)
-    // }
+    if (lastSelected) {
+      setCurrent(lastSelected)
+    }
     if (ownedPokes) {
       newOwned(ownedPokes)
     }
@@ -71,9 +71,19 @@ const App = () => {
     console.log(owned)
   }
 
-  const updateOwned = (pokeID, nickname) => {
-    newOwned([...owned, {pokeID, nickname}])
-    setPopUp(false)
+  const updateOwned = async(pokeID, nickname, event) => {
+    const sameNickname = owned.filter(el => el.nickname === nickname).length
+    const trimmedNick = nickname ? nickname.trim() : ''
+    console.log(sameNickname)
+    if (sameNickname || nickname === '' || trimmedNick === '') {
+      // await event.stopPropagation()
+      await event.preventDefault()
+      alert('Ooops...Kindly change the nickname')
+      
+    } else {
+      newOwned([...owned, {pokeID, nickname}])
+      setPopUp(false)
+    }
   }
 
   const selectPokemon = (pokeUrl) => {
@@ -85,9 +95,9 @@ const App = () => {
         console.log(currentItem)
       })
   }
-  const releasePokemon = (nickName) => {
-    console.log(nickName)
-    const updatedOwned = owned.filter(el => el.nickname !== nickName)
+  const releasePokemon = (nickname) => {
+    console.log(nickname)
+    const updatedOwned = owned.filter(el => el.nickname !== nickname)
     newOwned(updatedOwned)
     console.log(owned)
   }

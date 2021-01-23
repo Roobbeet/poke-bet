@@ -4,7 +4,7 @@ import './list.styles.css'
 const OwnedList = ({ ownedItem, releasePokemon }) => {
 
     const { types, moves, sprites, name } = ownedItem.pokeID
-    const {nickname} = ownedItem
+    const { nickname } = ownedItem
     console.log(types, moves, sprites)
     return (
         <div>
