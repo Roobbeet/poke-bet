@@ -25,22 +25,39 @@ const App = () => {
   useEffect(() => {
     const lastSelected = JSON.parse(localStorage.getItem('selectedItem'))
     const ownedPokes = JSON.parse(localStorage.getItem('ownedPokemon'))
+    const lastFetched = JSON.parse(localStorage.getItem('lastFetch'))
+    const lastlist = JSON.parse(localStorage.getItem('lastList'))
     if (lastSelected) {
       setCurrent(lastSelected)
-    }
+    } //last selected checking
     if (ownedPokes) {
       newOwned(ownedPokes)
-    }
-    fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20')
+    } //owned list
+    if (lastFetched) {
+      newRes(lastFetched)
+    } //prevent API fetching on & on
+    if (lastlist) {
+      newList(lastlist)
+    } //prevent API Fetching
+    if (!lastFetched || !lastlist) {
+      fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20')
       .then(response => response.json())
       .then(pokelist => {
         console.log(pokelist)
         newRes(pokelist)
         newList(pokelist.results)
+        localStorage.setItem('lastFetch', JSON.stringify(pokelist))
+        localStorage.setItem('lastList', JSON.stringify(pokelist.results))
       })
-  }, [])
-  useEffect(() => { localStorage.setItem('selectedItem', JSON.stringify(currentItem)); }, [currentItem]) //store selected Item
-  useEffect(() => { localStorage.setItem('ownedPokemon', JSON.stringify(owned)); }, [owned]) //owned pokemons persist
+    } // fetch if something is missing
+    
+  }, []) //fetch and store
+  useEffect(() => { localStorage.setItem('selectedItem', JSON.stringify(currentItem))
+  },
+  [currentItem]) //store selected Item
+  useEffect(() => { localStorage.setItem('ownedPokemon', JSON.stringify(owned))
+  },
+  [owned]) //owned pokemons persist
 
   const nextPage = () => {
     console.log(fetchres.next)
@@ -68,18 +85,15 @@ const App = () => {
   const catchPokemon = () => { //popup open then give name
     const math = Math.floor(Math.random() * (3 - 1) + 1)
     math < 2 ? console.log('failed to catch') : setPopUp(true)
-    console.log(owned)
   }
 
   const updateOwned = async(pokeID, nickname, event) => {
     const sameNickname = owned.filter(el => el.nickname === nickname).length
     const trimmedNick = nickname ? nickname.trim() : ''
-    console.log(sameNickname)
     if (sameNickname || nickname === '' || trimmedNick === '') {
       // await event.stopPropagation()
       await event.preventDefault()
       alert('Ooops...Kindly change the nickname')
-      
     } else {
       newOwned([...owned, {pokeID, nickname}])
       setPopUp(false)
@@ -90,16 +104,13 @@ const App = () => {
     fetch(pokeUrl)
       .then(response => response.json())
       .then(pokedetail => {
-        console.log(pokedetail)
         setCurrent(pokedetail)
-        console.log(currentItem)
       })
   }
+
   const releasePokemon = (nickname) => {
-    console.log(nickname)
     const updatedOwned = owned.filter(el => el.nickname !== nickname)
     newOwned(updatedOwned)
-    console.log(owned)
   }
 
   return (

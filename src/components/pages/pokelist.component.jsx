@@ -12,7 +12,7 @@ const Pokelist = () => {
                 {({list, selectPokemon}) =>
                     list.map((item) => (
                         <OwnedPokemonContext>
-                            {({ owned, releasePokemon }) => ( //get the list
+                            {({ owned }) => ( //get the list
                                 <Link to='/detailed'>
                                 <ListItem
                                     selectPokemon={selectPokemon}
