@@ -12,11 +12,11 @@ const Pokelist = () => {
                 {({list, selectPokemon}) =>
                     list.map((item) => (
                         <OwnedPokemonContext>
-                            {(owned) => ( //get the list
+                            {({ owned, releasePokemon }) => ( //get the list
                                 <Link to='/detailed'>
                                 <ListItem
                                     selectPokemon={selectPokemon}
-                                    isOwned={item.isDone}
+                                    isOwned={owned.filter(el => el.pokeID.name === item.name).length}
                                     key={`${item.name}`}
                                     itemName={item.name}
                                     url={item.url}
