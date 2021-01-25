@@ -1,6 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-// import './search.style.css';
 import DetailedItem from "../list/detail.component";
 import DetailedPokemonContext from "../contexts/detailed.context";
 

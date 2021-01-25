@@ -1,9 +1,9 @@
 import React from 'react';
-import './list.styles.css'
+import './main.styles.css'
 
 const ListItem = ({ itemName, isOwned, selectPokemon, ownNo, url }) => {
     return (
-        <div className={`item-container`} >
+        <div className={`item-container`}>
             <h4 onClick={() => selectPokemon(url)} className={`item-name`} >{itemName}</h4>
             <h4 className='no-owned'>{`Have ${isOwned} Pokemon(s)`}</h4>
         </div>

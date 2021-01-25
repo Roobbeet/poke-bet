@@ -1,18 +1,11 @@
 import React from 'react';
-import { Link, BrowserRouter as Router, withRouter} from 'react-router-dom'
-// import './search.styles.css';
+import { Link } from 'react-router-dom'
+import { css, jsx } from '@emotion/react'
 
-const SearchBar = ({ handleAddList, handleChange }) => {
+const SearchBar = () => {
   return (
     <div className="menu-bar">
-      <form onSubmit={handleAddList}>
-        <label>
-          Search Owned Pokemon
-          <input type="text" name="name" onChange={handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      <div className="tabs">
+      <div className="page-tabs">
         <Link to='/'>Pokemon List</Link>
         <Link to='/mypoke'>My Pokemon List</Link>
       </div>
