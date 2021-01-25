@@ -1,20 +1,20 @@
 .item-container {
-  /* background-color: #e2f86579; */
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   margin-right: 10px;
-  /* border: 1px solid black; */
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
+.detail {
+    justify-content: space-around;
+}
+.item-container h4 {
+    text-align: left;
+}
+h1, h2, h3, h4, h5, p {
   margin: 0;
   background-color: transparent;
+  text-transform: capitalize;
 }
 .col {
   background-color: #bbbbbb0e;

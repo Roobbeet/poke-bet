@@ -11,7 +11,7 @@ const DetailedItem = ({ currentItem, catchPokemon, popUpActive, updateOwned }) =
     return (
         <div >
             <h1>{name}</h1>
-            <div className="item-container">
+            <div className="item-container detail">
                 <div className="mon-pict">
                     {
                         currentItem ?
@@ -23,7 +23,7 @@ const DetailedItem = ({ currentItem, catchPokemon, popUpActive, updateOwned }) =
                     }
                 </div>
                 <div className="types">
-                    <h4>Types</h4>
+                    <h3>Types</h3>
                     <div className="type-items">
                         {
                             currentItem ?
@@ -34,7 +34,7 @@ const DetailedItem = ({ currentItem, catchPokemon, popUpActive, updateOwned }) =
                 </div>
             </div>
             <div className="mon-details">
-                <h5>Moves</h5>
+                <h3>Moves</h3>
                 <div className="moves">
                     {
                         currentItem ?
