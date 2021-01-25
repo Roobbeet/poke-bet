@@ -1,23 +1,22 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## TRY ME
+https://poke-bet.netlify.app/
 
-## About MA-Listo
+## About Poke-Bet
 
-MA-Listo is a web app to do list for everyday temporary needs. Shopping list? it can do it. To Do List? Of course it can do it. Checklist for your traveling? Easy.
-Worry not to install the app because it is a web based app, simply used it and dump it afterwards yo!
+Poke-bet is a web-app for pokemon hunting, with 50% chance of catching the pokemon, adding nickname to catched pokemons, and releasing it.
 
 
 ## Features
 
-### New List
-Add new item to your temporary list. No need to worry about duplicated items because it will prevented by the app.
+### Persist
+Try to reload the page, and your catched pokemon list will still be there.
 
-### Reset All
-Wanted a new list? Go ahead wipe your list up. It is a one way feature so...be careful ya?
+### Catch a Pokemon
+Go to pokemon detailed page by clicking on the pokemon list page, try to catch the pokemon and give it a cool nickname.
 
-### Try To Refresh It!
-I dare you! try to refresh the page and i can guarantee you, your list will be back. Just like arnold schwarzenegger (yes, i googled his name)
-
-
+### Release Pokemon
+You can release the pokemon with a button
 
 
 
